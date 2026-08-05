@@ -180,7 +180,7 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                             expanded = expanded,
                                             onExpandedChange = { expanded = !expanded }
                                         ) {
-                                            OutlinedTextField(
+                                            ComplaintOutlinedTextField(
                                                 value = category,
                                                 onValueChange = {},
                                                 readOnly = true,
@@ -188,20 +188,16 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                                 modifier = Modifier
                                                     .fillMaxWidth()
                                                     .menuAnchor()
-                                                    .testTag("complaint_category_dropdown"),
-                                                shape = RoundedCornerShape(8.dp),
-                                                colors = OutlinedTextFieldDefaults.colors(
-                                                    focusedBorderColor = TablerBlue,
-                                                    unfocusedBorderColor = TablerBorder
-                                                )
+                                                    .testTag("complaint_category_dropdown")
                                             )
                                             ExposedDropdownMenu(
                                                 expanded = expanded,
-                                                onDismissRequest = { expanded = false }
+                                                onDismissRequest = { expanded = false },
+                                                modifier = Modifier.background(Color.White)
                                             ) {
                                                 categories.forEach { selectionOption ->
                                                     DropdownMenuItem(
-                                                        text = { Text(selectionOption, fontSize = 14.sp) },
+                                                        text = { Text(selectionOption, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = TablerDark) },
                                                         onClick = {
                                                             category = selectionOption
                                                             expanded = false
@@ -220,19 +216,14 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                             fontWeight = FontWeight.SemiBold,
                                             color = TablerDark
                                         )
-                                        OutlinedTextField(
+                                        ComplaintOutlinedTextField(
                                             value = title,
                                             onValueChange = { title = it },
-                                            placeholder = { Text("Contoh: Penahanan Gaji ABK Kapal Longline", fontSize = 14.sp) },
+                                            placeholder = { Text("Contoh: Penahanan Gaji ABK Kapal Longline", fontSize = 13.sp, color = Color(0xFF64748B)) },
                                             singleLine = true,
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .testTag("complaint_title_input"),
-                                            shape = RoundedCornerShape(8.dp),
-                                            colors = OutlinedTextFieldDefaults.colors(
-                                                focusedBorderColor = TablerBlue,
-                                                unfocusedBorderColor = TablerBorder
-                                            )
+                                                .testTag("complaint_title_input")
                                         )
                                     }
 
@@ -244,19 +235,14 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                             fontWeight = FontWeight.SemiBold,
                                             color = TablerDark
                                         )
-                                        OutlinedTextField(
+                                        ComplaintOutlinedTextField(
                                             value = location,
                                             onValueChange = { location = it },
-                                            placeholder = { Text("Contoh: Pelabuhan Benoa / Kapal MV Samudra", fontSize = 14.sp) },
+                                            placeholder = { Text("Contoh: Pelabuhan Benoa / Kapal MV Samudra", fontSize = 13.sp, color = Color(0xFF64748B)) },
                                             singleLine = true,
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .testTag("complaint_location_input"),
-                                            shape = RoundedCornerShape(8.dp),
-                                            colors = OutlinedTextFieldDefaults.colors(
-                                                focusedBorderColor = TablerBlue,
-                                                unfocusedBorderColor = TablerBorder
-                                            )
+                                                .testTag("complaint_location_input")
                                         )
                                     }
 
@@ -268,19 +254,14 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                             fontWeight = FontWeight.SemiBold,
                                             color = TablerDark
                                         )
-                                        OutlinedTextField(
+                                        ComplaintOutlinedTextField(
                                             value = dateOccurred,
                                             onValueChange = { dateOccurred = it },
-                                            placeholder = { Text("Contoh: Akhir Juni 2026 atau 25-06-2026", fontSize = 14.sp) },
+                                            placeholder = { Text("Contoh: Akhir Juni 2026 atau 25-06-2026", fontSize = 13.sp, color = Color(0xFF64748B)) },
                                             singleLine = true,
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .testTag("complaint_date_input"),
-                                            shape = RoundedCornerShape(8.dp),
-                                            colors = OutlinedTextFieldDefaults.colors(
-                                                focusedBorderColor = TablerBlue,
-                                                unfocusedBorderColor = TablerBorder
-                                            )
+                                                .testTag("complaint_date_input")
                                         )
                                     }
                                 }
@@ -312,25 +293,22 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                             fontWeight = FontWeight.SemiBold,
                                             color = TablerDark
                                         )
-                                        OutlinedTextField(
+                                        ComplaintOutlinedTextField(
                                             value = description,
                                             onValueChange = { description = it },
                                             placeholder = { 
                                                 Text(
                                                     "Tulis kronologi sejelas mungkin. Sertakan nama kapal, nama pemilik, kronologi tindak kekerasan atau penahanan gaji yang terjadi secara detail.", 
-                                                    fontSize = 13.sp
+                                                    fontSize = 13.sp,
+                                                    color = Color(0xFF64748B)
                                                 ) 
                                             },
+                                            singleLine = false,
                                             minLines = 4,
                                             maxLines = 8,
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .testTag("complaint_description_input"),
-                                            shape = RoundedCornerShape(8.dp),
-                                            colors = OutlinedTextFieldDefaults.colors(
-                                                focusedBorderColor = TablerBlue,
-                                                unfocusedBorderColor = TablerBorder
-                                            )
+                                                .testTag("complaint_description_input")
                                         )
                                     }
 
@@ -339,22 +317,17 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                         Text(
                                             text = "Saksi-Saksi (Jika Ada)",
                                             fontSize = 12.sp,
-                                            fontWeight = FontWeight.SemiBold,
+                                            fontWeight = FontWeight.Bold,
                                             color = TablerDark
                                         )
-                                        OutlinedTextField(
+                                        ComplaintOutlinedTextField(
                                             value = witnesses,
                                             onValueChange = { witnesses = it },
-                                            placeholder = { Text("Contoh: Sesama rekan ABK 2 orang (Budi & Toni)", fontSize = 14.sp) },
+                                            placeholder = { Text("Contoh: Sesama rekan ABK 2 orang (Budi & Toni)", fontSize = 13.sp, color = Color(0xFF64748B)) },
                                             singleLine = true,
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .testTag("complaint_witnesses_input"),
-                                            shape = RoundedCornerShape(8.dp),
-                                            colors = OutlinedTextFieldDefaults.colors(
-                                                focusedBorderColor = TablerBlue,
-                                                unfocusedBorderColor = TablerBorder
-                                            )
+                                                .testTag("complaint_witnesses_input")
                                         )
                                     }
 
@@ -540,6 +513,35 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                         }
                     }
 
+                    // Validation hint if step 1 is incomplete
+                    if (currentStep == 1 && (title.isBlank() || location.isBlank())) {
+                        Surface(
+                            color = Color(0xFFFEF3C7),
+                            shape = RoundedCornerShape(8.dp),
+                            border = BorderStroke(1.dp, Color(0xFFF59E0B)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Info,
+                                    contentDescription = "Peringatan",
+                                    tint = Color(0xFFD97706),
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Text(
+                                    text = "Mohon lengkapi Judul Laporan Singkat dan Lokasi Kejadian untuk melanjutkan ke Langkah 2.",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color(0xFF92400E)
+                                )
+                            }
+                        }
+                    }
+
                     // STEPPER BOTTOM NAVIGATION BUTTONS
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -550,15 +552,17 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                         if (currentStep > 1) {
                             OutlinedButton(
                                 onClick = { viewModel.setFormStep(currentStep - 1) },
-                                shape = RoundedCornerShape(8.dp),
-                                border = BorderStroke(1.dp, TablerBorder)
+                                shape = RoundedCornerShape(10.dp),
+                                border = BorderStroke(1.5.dp, Color(0xFF94A3B8)),
+                                modifier = Modifier.height(48.dp),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = TablerDark)
                             ) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Icon(Icons.Default.ArrowBack, contentDescription = "Sebelumnya", modifier = Modifier.size(16.dp))
-                                    Text("Sebelumnya", fontSize = 13.sp, color = TablerDark)
+                                    Icon(Icons.Default.ArrowBack, contentDescription = "Sebelumnya", modifier = Modifier.size(18.dp), tint = TablerDark)
+                                    Text("Sebelumnya", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = TablerDark)
                                 }
                             }
                         } else {
@@ -569,23 +573,30 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                         if (currentStep < 3) {
                             Button(
                                 onClick = { 
-                                    // Validasi sederhana langkah 1
-                                    if (currentStep == 1 && title.isBlank()) {
-                                        // Jangan izinkan lanjut jika kosong
+                                    if (currentStep == 1 && (title.isBlank() || location.isBlank())) {
+                                        // Do nothing if invalid
                                     } else {
                                         viewModel.setFormStep(currentStep + 1)
                                     }
                                 },
                                 enabled = if (currentStep == 1) title.isNotBlank() && location.isNotBlank() else true,
-                                shape = RoundedCornerShape(8.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = TablerBlue)
+                                shape = RoundedCornerShape(10.dp),
+                                modifier = Modifier
+                                    .height(48.dp)
+                                    .testTag("complaint_next_step_button"),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = TablerBlue,
+                                    contentColor = Color.White,
+                                    disabledContainerColor = Color(0xFFCBD5E1),
+                                    disabledContentColor = Color(0xFF64748B)
+                                )
                             ) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Text("Lanjut", fontSize = 13.sp, color = Color.White)
-                                    Icon(Icons.Default.ArrowForward, contentDescription = "Lanjut", modifier = Modifier.size(16.dp))
+                                    Text("Lanjut (Langkah ${currentStep + 1})", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                    Icon(Icons.Default.ArrowForward, contentDescription = "Lanjut", modifier = Modifier.size(18.dp))
                                 }
                             }
                         } else {
@@ -605,9 +616,16 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                     )
                                 },
                                 enabled = !isSubmitting,
-                                shape = RoundedCornerShape(8.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = TablerSuccess),
-                                modifier = Modifier.testTag("submit_complaint_form_button")
+                                shape = RoundedCornerShape(10.dp),
+                                modifier = Modifier
+                                    .height(48.dp)
+                                    .testTag("submit_complaint_form_button"),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = TablerSuccess,
+                                    contentColor = Color.White,
+                                    disabledContainerColor = Color(0xFF94A3B8),
+                                    disabledContentColor = Color.White
+                                )
                             ) {
                                 if (isSubmitting) {
                                     Row(
@@ -615,15 +633,15 @@ fun ComplaintFormScreen(viewModel: NfcViewModel, onBack: () -> Unit) {
                                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
                                         CircularProgressIndicator(color = Color.White, modifier = Modifier.size(18.dp))
-                                        Text(if (isUploading) "Mengunggah Bukti..." else "Kirim Laporan...", fontSize = 13.sp)
+                                        Text(if (isUploading) "Mengunggah Bukti..." else "Kirim Laporan...", fontSize = 14.sp, fontWeight = FontWeight.Bold)
                                     }
                                 } else {
                                     Row(
                                         verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        Icon(Icons.Default.CheckCircle, contentDescription = "Kirim", modifier = Modifier.size(16.dp))
-                                        Text("Kirim Pengaduan Resmi", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                                        Icon(Icons.Default.CheckCircle, contentDescription = "Kirim", modifier = Modifier.size(18.dp))
+                                        Text("Kirim Pengaduan Resmi", fontSize = 14.sp, fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }
@@ -756,17 +774,12 @@ fun AppsScriptConfigSection(currentUrl: String, onSave: (String) -> Unit) {
                 color = TablerSecondary
             )
 
-            OutlinedTextField(
+            ComplaintOutlinedTextField(
                 value = urlInput,
                 onValueChange = { urlInput = it },
-                placeholder = { Text("https://script.google.com/macros/s/.../exec", fontSize = 12.sp) },
+                placeholder = { Text("https://script.google.com/macros/s/.../exec", fontSize = 12.sp, color = Color(0xFF64748B)) },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = TablerBlue,
-                    unfocusedBorderColor = TablerBorder
-                )
+                modifier = Modifier.fillMaxWidth()
             )
 
             Button(
@@ -873,3 +886,55 @@ fun compressAndEncodeImage(context: Context, uri: Uri): Pair<String, String>? {
         null
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ComplaintOutlinedTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    label: @Composable (() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
+    singleLine: Boolean = true,
+    minLines: Int = 1,
+    maxLines: Int = 1
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        label = label,
+        placeholder = placeholder,
+        trailingIcon = trailingIcon,
+        readOnly = readOnly,
+        enabled = enabled,
+        singleLine = singleLine,
+        minLines = minLines,
+        maxLines = maxLines,
+        textStyle = androidx.compose.ui.text.TextStyle(
+            color = TablerDark,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold
+        ),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = TablerDark,
+            unfocusedTextColor = TablerDark,
+            disabledTextColor = TablerDark,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color(0xFFF8FAFC),
+            disabledContainerColor = Color(0xFFF1F5F9),
+            focusedBorderColor = TablerBlue,
+            unfocusedBorderColor = Color(0xFF94A3B8),
+            disabledBorderColor = TablerBorder,
+            focusedLabelColor = TablerBlue,
+            unfocusedLabelColor = Color(0xFF334155),
+            disabledLabelColor = TablerSecondary,
+            focusedPlaceholderColor = Color(0xFF64748B),
+            unfocusedPlaceholderColor = Color(0xFF64748B)
+        )
+    )
+}
+

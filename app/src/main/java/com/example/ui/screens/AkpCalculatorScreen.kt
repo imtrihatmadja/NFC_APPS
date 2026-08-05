@@ -444,7 +444,7 @@ fun AkpCalculatorScreen(
                                         stepNumber = "LANGKAH 1 DARI 7"
                                     )
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = namaAkp,
                                         onValueChange = { namaAkp = it },
                                         label = { Text("Nama Awak Kapal (AKP)") },
@@ -459,7 +459,7 @@ fun AkpCalculatorScreen(
                                         expanded = expandedJabatan,
                                         onExpandedChange = { expandedJabatan = !expandedJabatan }
                                     ) {
-                                        OutlinedTextField(
+                                        AppOutlinedTextField(
                                             value = "${selectedJabatan.label} (${selectedJabatan.bobot}x)",
                                             onValueChange = {},
                                             readOnly = true,
@@ -471,11 +471,12 @@ fun AkpCalculatorScreen(
                                         )
                                         ExposedDropdownMenu(
                                             expanded = expandedJabatan,
-                                            onDismissRequest = { expandedJabatan = false }
+                                            onDismissRequest = { expandedJabatan = false },
+                                            modifier = Modifier.background(Color.White)
                                         ) {
                                             DAFTAR_JABATAN.forEach { j ->
                                                 DropdownMenuItem(
-                                                    text = { Text("${j.label} (${j.bobot}x bobot)") },
+                                                    text = { Text("${j.label} (${j.bobot}x bobot)", color = TablerDark, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) },
                                                     onClick = {
                                                         selectedJabatan = j
                                                         expandedJabatan = false
@@ -491,7 +492,7 @@ fun AkpCalculatorScreen(
                                         expanded = expandedProvinsi,
                                         onExpandedChange = { expandedProvinsi = !expandedProvinsi }
                                     ) {
-                                        OutlinedTextField(
+                                        AppOutlinedTextField(
                                             value = "${selectedProvinsi.nama} — ${formatRupiah(selectedProvinsi.ump)}",
                                             onValueChange = {},
                                             readOnly = true,
@@ -503,11 +504,12 @@ fun AkpCalculatorScreen(
                                         )
                                         ExposedDropdownMenu(
                                             expanded = expandedProvinsi,
-                                            onDismissRequest = { expandedProvinsi = false }
+                                            onDismissRequest = { expandedProvinsi = false },
+                                            modifier = Modifier.background(Color.White)
                                         ) {
                                             DAFTAR_PROVINSI_UMP.forEach { p ->
                                                 DropdownMenuItem(
-                                                    text = { Text("${p.nama} — ${formatRupiah(p.ump)}") },
+                                                    text = { Text("${p.nama} — ${formatRupiah(p.ump)}", color = TablerDark, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) },
                                                     onClick = {
                                                         selectedProvinsi = p
                                                         expandedProvinsi = false
@@ -517,7 +519,7 @@ fun AkpCalculatorScreen(
                                         }
                                     }
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = namaKapal,
                                         onValueChange = { namaKapal = it },
                                         label = { Text("Nama Kapal Perikanan") },
@@ -577,7 +579,7 @@ fun AkpCalculatorScreen(
                                         )
                                     }
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = durasiTripHari,
                                         onValueChange = { durasiTripHari = it },
                                         label = { Text("Durasi Trip (Hari)") },
@@ -587,7 +589,7 @@ fun AkpCalculatorScreen(
                                     )
 
                                     if (systemType == "tetap") {
-                                        OutlinedTextField(
+                                        AppOutlinedTextField(
                                             value = gajiPokokText,
                                             onValueChange = { gajiPokokText = it },
                                             label = { Text("Gaji Pokok / Bulan (Rp)") },
@@ -604,7 +606,7 @@ fun AkpCalculatorScreen(
                                         }
                                     } else {
                                         // Input Bagi Hasil
-                                        OutlinedTextField(
+                                        AppOutlinedTextField(
                                             value = nilaiTangkapanText,
                                             onValueChange = { nilaiTangkapanText = it },
                                             label = { Text("Nilai Tangkapan Bersih Kapal / Trip (Rp)") },
@@ -614,7 +616,7 @@ fun AkpCalculatorScreen(
                                             modifier = Modifier.fillMaxWidth()
                                         )
 
-                                        OutlinedTextField(
+                                        AppOutlinedTextField(
                                             value = proporsiKruPctText,
                                             onValueChange = { proporsiKruPctText = it },
                                             label = { Text("Proporsi Pool Total Kru (%)") },
@@ -669,7 +671,7 @@ fun AkpCalculatorScreen(
                                         stepNumber = "LANGKAH 3 DARI 7"
                                     )
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = tunjanganBerlayarText,
                                         onValueChange = { tunjanganBerlayarText = it },
                                         label = { Text("Tunjangan Berlayar (Rp) — Opsional") },
@@ -697,7 +699,7 @@ fun AkpCalculatorScreen(
                                             horizontalArrangement = Arrangement.spacedBy(6.dp),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = item.jenis,
                                                 onValueChange = { newName ->
                                                     premiList = premiList.toMutableList().apply {
@@ -709,7 +711,7 @@ fun AkpCalculatorScreen(
                                                 modifier = Modifier.weight(1.2f)
                                             )
 
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = if (item.tarifPerKg > 0) item.tarifPerKg.toInt().toString() else "",
                                                 onValueChange = { newTarif ->
                                                     val valTarif = newTarif.toDoubleOrNull() ?: 0.0
@@ -723,7 +725,7 @@ fun AkpCalculatorScreen(
                                                 modifier = Modifier.weight(1f)
                                             )
 
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = if (item.jumlahKg > 0) item.jumlahKg.toInt().toString() else "",
                                                 onValueChange = { newKg ->
                                                     val valKg = newKg.toDoubleOrNull() ?: 0.0
@@ -763,7 +765,7 @@ fun AkpCalculatorScreen(
                                         Text("+ Tambah Jenis Tangkapan", fontSize = 12.sp, fontWeight = FontWeight.Bold)
                                     }
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = uangLemburText,
                                         onValueChange = { uangLemburText = it },
                                         label = { Text("Uang Lembur (Rp)") },
@@ -773,7 +775,7 @@ fun AkpCalculatorScreen(
                                         modifier = Modifier.fillMaxWidth()
                                     )
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = premiLainText,
                                         onValueChange = { premiLainText = it },
                                         label = { Text("Premi / Pendapatan Lain (Rp)") },
@@ -817,7 +819,7 @@ fun AkpCalculatorScreen(
                                             horizontalArrangement = Arrangement.spacedBy(6.dp),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = item.nama,
                                                 onValueChange = { newName ->
                                                     opexList = opexList.toMutableList().apply {
@@ -829,7 +831,7 @@ fun AkpCalculatorScreen(
                                                 modifier = Modifier.weight(1.5f)
                                             )
 
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = if (item.jumlahRp > 0) item.jumlahRp.toLong().toString() else "",
                                                 onValueChange = { newRp ->
                                                     val valRp = newRp.toDoubleOrNull() ?: 0.0
@@ -960,7 +962,7 @@ fun AkpCalculatorScreen(
                                         InfoBanner("ℹ️ Dipotong dari upah AKP: 1% (${formatRupiah(bpjsKesWorkerVal)}). Tanggungan perusahaan: 4% (${formatRupiah(gajiPokokVal * 0.04)}).")
                                     }
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = cicilanKasbonText,
                                         onValueChange = { cicilanKasbonText = it },
                                         label = { Text("Cicilan Kasbon Perusahaan (Rp)") },
@@ -974,7 +976,7 @@ fun AkpCalculatorScreen(
                                         WarningBanner("⚠️ Cicilan kasbon (${formatRupiah(cicilanKasbonVal)}) melebihi 30% pendapatan kotor (${formatRupiah(totalKotorVal * 0.3)})! Berisiko jerat utang.")
                                     }
 
-                                    OutlinedTextField(
+                                    AppOutlinedTextField(
                                         value = biayaRekrutmenText,
                                         onValueChange = { biayaRekrutmenText = it },
                                         label = { Text("Biaya Rekrutmen ke Pekerja (Harus Rp 0)") },
@@ -1022,7 +1024,7 @@ fun AkpCalculatorScreen(
                                             horizontalArrangement = Arrangement.spacedBy(6.dp),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = item.nama,
                                                 onValueChange = { newName ->
                                                     grosiranList = grosiranList.toMutableList().apply {
@@ -1034,7 +1036,7 @@ fun AkpCalculatorScreen(
                                                 modifier = Modifier.weight(1.2f)
                                             )
 
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = if (item.modalPerUnit > 0) item.modalPerUnit.toLong().toString() else "",
                                                 onValueChange = { newModal ->
                                                     val valModal = newModal.toDoubleOrNull() ?: 0.0
@@ -1049,7 +1051,7 @@ fun AkpCalculatorScreen(
                                                 modifier = Modifier.weight(1.1f)
                                             )
 
-                                            OutlinedTextField(
+                                            AppOutlinedTextField(
                                                 value = if (item.jualPerUnit > 0) item.jualPerUnit.toLong().toString() else "",
                                                 onValueChange = { newJual ->
                                                     val valJual = newJual.toDoubleOrNull() ?: 0.0
@@ -1741,4 +1743,73 @@ fun formatRupiah(amount: Double): String {
     val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
     formatter.maximumFractionDigits = 0
     return formatter.format(amount)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppOutlinedTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    label: @Composable (() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    prefix: @Composable (() -> Unit)? = null,
+    suffix: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
+    singleLine: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    isError: Boolean = false
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        label = label,
+        placeholder = placeholder,
+        prefix = prefix,
+        suffix = suffix,
+        leadingIcon = leadingIcon,
+        trailingIcon = trailingIcon,
+        readOnly = readOnly,
+        enabled = enabled,
+        singleLine = singleLine,
+        keyboardOptions = keyboardOptions,
+        isError = isError,
+        textStyle = androidx.compose.ui.text.TextStyle(
+            color = TablerDark,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold
+        ),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = TablerDark,
+            unfocusedTextColor = TablerDark,
+            disabledTextColor = TablerDark,
+            errorTextColor = TablerDanger,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color(0xFFF8FAFC),
+            disabledContainerColor = Color(0xFFF1F5F9),
+            errorContainerColor = Color.White,
+            focusedBorderColor = TablerBlue,
+            unfocusedBorderColor = Color(0xFF94A3B8),
+            disabledBorderColor = TablerBorder,
+            errorBorderColor = TablerDanger,
+            focusedLabelColor = TablerBlue,
+            unfocusedLabelColor = Color(0xFF334155),
+            disabledLabelColor = TablerSecondary,
+            errorLabelColor = TablerDanger,
+            focusedPlaceholderColor = Color(0xFF64748B),
+            unfocusedPlaceholderColor = Color(0xFF64748B),
+            focusedPrefixColor = TablerDark,
+            unfocusedPrefixColor = TablerDark,
+            focusedSuffixColor = TablerDark,
+            unfocusedSuffixColor = TablerDark,
+            focusedLeadingIconColor = TablerBlue,
+            unfocusedLeadingIconColor = TablerDark,
+            focusedTrailingIconColor = TablerBlue,
+            unfocusedTrailingIconColor = TablerDark
+        )
+    )
 }
