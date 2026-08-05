@@ -1,0 +1,6 @@
+{
+  "name": "NFC Indonesia",
+  "description": "Aplikasi National Fishers Center (NFC) Indonesia sebagai pusat informasi, edukasi, dan layanan pengaduan bagi pekerja perikanan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
