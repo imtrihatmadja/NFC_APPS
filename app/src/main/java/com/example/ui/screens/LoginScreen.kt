@@ -102,28 +102,44 @@ fun LoginScreen(viewModel: NfcViewModel) {
                             Text(
                                 text = "Nama Lengkap (Sesuai KTP)",
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.SemiBold,
+                                fontWeight = FontWeight.Bold,
                                 color = TablerDark
                             )
                             OutlinedTextField(
                                 value = nameInput,
                                 onValueChange = { nameInput = it },
-                                placeholder = { Text("Contoh: Ahmad Budiman", fontSize = 14.sp) },
+                                placeholder = { Text("Contoh: Ahmad Budiman", fontSize = 14.sp, color = Color(0xFF64748B)) },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Person,
                                         contentDescription = "Nama",
-                                        tint = TablerSecondary
+                                        tint = TablerDark
                                     )
                                 },
                                 singleLine = true,
+                                textStyle = androidx.compose.ui.text.TextStyle(
+                                    color = TablerDark,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                ),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .testTag("login_name_input"),
                                 shape = RoundedCornerShape(8.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = TablerDark,
+                                    unfocusedTextColor = TablerDark,
+                                    disabledTextColor = TablerDark,
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color(0xFFF8FAFC),
                                     focusedBorderColor = TablerBlue,
-                                    unfocusedBorderColor = TablerBorder
+                                    unfocusedBorderColor = Color(0xFF94A3B8),
+                                    focusedLabelColor = TablerBlue,
+                                    unfocusedLabelColor = Color(0xFF334155),
+                                    focusedPlaceholderColor = Color(0xFF64748B),
+                                    unfocusedPlaceholderColor = Color(0xFF64748B),
+                                    focusedLeadingIconColor = TablerBlue,
+                                    unfocusedLeadingIconColor = TablerDark
                                 )
                             )
                         }
@@ -133,7 +149,7 @@ fun LoginScreen(viewModel: NfcViewModel) {
                             Text(
                                 text = "Nomor WhatsApp",
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.SemiBold,
+                                fontWeight = FontWeight.Bold,
                                 color = TablerDark
                             )
                             OutlinedTextField(
@@ -142,23 +158,39 @@ fun LoginScreen(viewModel: NfcViewModel) {
                                     // Hanya izinkan angka
                                     phoneInput = it.filter { char -> char.isDigit() } 
                                 },
-                                placeholder = { Text("Contoh: 08123456789", fontSize = 14.sp) },
+                                placeholder = { Text("Contoh: 08123456789", fontSize = 14.sp, color = Color(0xFF64748B)) },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Phone,
                                         contentDescription = "WhatsApp",
-                                        tint = TablerSecondary
+                                        tint = TablerDark
                                     )
                                 },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                                 singleLine = true,
+                                textStyle = androidx.compose.ui.text.TextStyle(
+                                    color = TablerDark,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                ),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .testTag("login_phone_input"),
                                 shape = RoundedCornerShape(8.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = TablerDark,
+                                    unfocusedTextColor = TablerDark,
+                                    disabledTextColor = TablerDark,
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color(0xFFF8FAFC),
                                     focusedBorderColor = TablerBlue,
-                                    unfocusedBorderColor = TablerBorder
+                                    unfocusedBorderColor = Color(0xFF94A3B8),
+                                    focusedLabelColor = TablerBlue,
+                                    unfocusedLabelColor = Color(0xFF334155),
+                                    focusedPlaceholderColor = Color(0xFF64748B),
+                                    unfocusedPlaceholderColor = Color(0xFF64748B),
+                                    focusedLeadingIconColor = TablerBlue,
+                                    unfocusedLeadingIconColor = TablerDark
                                 )
                             )
                         }
@@ -182,13 +214,14 @@ fun LoginScreen(viewModel: NfcViewModel) {
                             enabled = phoneInput.isNotBlank() && !isVerifying,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(46.dp)
+                                .height(48.dp)
                                 .testTag("login_submit_button"),
-                            shape = RoundedCornerShape(8.dp),
+                            shape = RoundedCornerShape(10.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = TablerSuccess,
                                 contentColor = Color.White,
-                                disabledContainerColor = TablerSecondary.copy(alpha = 0.3f)
+                                disabledContainerColor = Color(0xFFCBD5E1),
+                                disabledContentColor = Color(0xFF64748B)
                             )
                         ) {
                             if (isVerifying) {
@@ -237,22 +270,30 @@ fun LoginScreen(viewModel: NfcViewModel) {
                                     otpInput = it.filter { char -> char.isDigit() }
                                 }
                             },
-                            placeholder = { Text("------", fontSize = 18.sp, textAlign = TextAlign.Center) },
+                            placeholder = { Text("------", fontSize = 18.sp, textAlign = TextAlign.Center, color = Color(0xFF64748B)) },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             singleLine = true,
                             textStyle = LocalTextStyle.current.copy(
                                 textAlign = TextAlign.Center,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold,
-                                letterSpacing = 8.sp
+                                letterSpacing = 8.sp,
+                                color = TablerDark
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .testTag("login_otp_input"),
                             shape = RoundedCornerShape(8.dp),
                             colors = OutlinedTextFieldDefaults.colors(
+                                focusedTextColor = TablerDark,
+                                unfocusedTextColor = TablerDark,
+                                disabledTextColor = TablerDark,
+                                focusedContainerColor = Color.White,
+                                unfocusedContainerColor = Color(0xFFF8FAFC),
                                 focusedBorderColor = TablerBlue,
-                                unfocusedBorderColor = TablerBorder
+                                unfocusedBorderColor = Color(0xFF94A3B8),
+                                focusedPlaceholderColor = Color(0xFF64748B),
+                                unfocusedPlaceholderColor = Color(0xFF64748B)
                             )
                         )
 
@@ -280,12 +321,14 @@ fun LoginScreen(viewModel: NfcViewModel) {
                             enabled = otpInput.length == 6 && !isVerifying,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(46.dp)
+                                .height(48.dp)
                                 .testTag("verify_otp_button"),
-                            shape = RoundedCornerShape(8.dp),
+                            shape = RoundedCornerShape(10.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = TablerBlue,
-                                contentColor = Color.White
+                                contentColor = Color.White,
+                                disabledContainerColor = Color(0xFFCBD5E1),
+                                disabledContentColor = Color(0xFF64748B)
                             )
                         ) {
                             if (isVerifying) {

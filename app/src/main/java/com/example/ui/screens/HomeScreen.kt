@@ -192,29 +192,37 @@ fun HomeScreen(
                     }
 
                     Column(modifier = Modifier.weight(1f)) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        Surface(
+                            color = TablerBlue.copy(alpha = 0.12f),
+                            shape = RoundedCornerShape(4.dp),
+                            modifier = Modifier.padding(bottom = 4.dp)
                         ) {
-                            Text(
-                                text = "Kalkulator Rekrutmen AKP",
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = TablerDark
-                            )
-                            Surface(
-                                color = TablerBlue.copy(alpha = 0.1f),
-                                shape = RoundedCornerShape(4.dp)
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(3.dp),
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                             ) {
+                                Icon(
+                                    imageVector = Icons.Default.Lock,
+                                    contentDescription = null,
+                                    tint = TablerBlue,
+                                    modifier = Modifier.size(10.dp)
+                                )
                                 Text(
-                                    text = "Member",
+                                    text = "KHUSUS MEMBER",
                                     fontSize = 9.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = TablerBlue,
-                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                    color = TablerBlue
                                 )
                             }
                         }
+                        Text(
+                            text = "Kalkulator Rekrutmen AKP",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = TablerDark
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = "Simulasi remunerasi transparan, potong kasbon, & standar upah layak sesuai Permen KP & ILO C.188.",
                             fontSize = 12.sp,
