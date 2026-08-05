@@ -9,6 +9,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -192,29 +193,29 @@ fun TrainingScreen(viewModel: NfcViewModel) {
                     }
                 }
 
-                // Category Filter Chips
+                // Category Filter Chips (Horizontal Slider)
                 item {
-                    Row(
+                    LazyRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        categories.forEach { category ->
+                        items(categories) { category ->
                             val isSelected = category == selectedCategory
                             FilterChip(
                                 selected = isSelected,
                                 onClick = { selectedCategory = category },
-                                label = { Text(category, fontSize = 11.sp, fontWeight = FontWeight.Bold) },
+                                label = { Text(category, fontSize = 12.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium) },
                                 colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = TablerBlue.copy(alpha = 0.15f),
-                                    selectedLabelColor = TablerBlue,
+                                    selectedContainerColor = TablerBlue,
+                                    selectedLabelColor = Color.White,
                                     containerColor = Color.White,
-                                    labelColor = TablerSecondary
+                                    labelColor = TablerDark
                                 ),
                                 border = FilterChipDefaults.filterChipBorder(
                                     enabled = true,
                                     selected = isSelected,
-                                    borderColor = TablerBorder,
+                                    borderColor = Color(0xFF94A3B8),
                                     selectedBorderColor = TablerBlue
                                 )
                             )

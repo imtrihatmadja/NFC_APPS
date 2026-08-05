@@ -312,8 +312,10 @@ class NfcViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setTab(tabName: String) {
         _currentTab.value = tabName
-        // Clear selected post when switching tabs
+        // Clear selected post and overlays when switching tabs
         _selectedPost.value = null
+        _isCalculatorOpen.value = false
+        _showComplaintForm.value = false
     }
 
     fun setSearchQuery(query: String) {

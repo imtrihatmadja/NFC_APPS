@@ -387,6 +387,13 @@ fun ProfileScreen(viewModel: NfcViewModel) {
                         )
                         Divider(color = TablerBorder)
                         ProfileMenuItem(
+                            icon = Icons.Default.Calculate,
+                            title = "Kalkulator Pengupahan AKP",
+                            subtitle = "Simulasi upah layak, potong kasbon & gaji transparan",
+                            onClick = { viewModel.setCalculatorOpen(true) }
+                        )
+                        Divider(color = TablerBorder)
+                        ProfileMenuItem(
                             icon = Icons.Default.HelpOutline,
                             title = "Bantuan / FAQ",
                             subtitle = "Panduan cara kerja & rujukan NFC",
