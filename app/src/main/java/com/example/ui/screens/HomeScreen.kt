@@ -71,7 +71,7 @@ fun HomeScreen(
             HeroBannerSection(
                 onCtaClick = {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("https://wa.me/628111222333?text=Halo%20National%20Fishers%20Center%20Indonesia,%20saya%20ingin%20berkonsultasi")
+                        data = Uri.parse("https://wa.me/628119214141?text=Halo%20National%20Fishers%20Center%20Indonesia,%20saya%20ingin%20berkonsultasi")
                     }
                     context.startActivity(intent)
                 }
@@ -319,7 +319,7 @@ fun HomeScreen(
             WhatsAppCtaSection(
                 onJoinClick = {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("https://wa.me/628111222333?text=Halo%20NFC%20Indonesia,%20saya%20ingin%20bergabung%20dengan%20komunitas%20WhatsApp")
+                        data = Uri.parse("https://wa.me/628119214141?text=Halo%20NFC%20Indonesia,%20saya%20ingin%20bergabung%20dengan%20komunitas%20WhatsApp")
                     }
                     context.startActivity(intent)
                 }

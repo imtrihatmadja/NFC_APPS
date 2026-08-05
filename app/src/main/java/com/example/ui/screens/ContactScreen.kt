@@ -105,7 +105,7 @@ fun ContactScreen(
                 OfficeLocationCard(
                     city = "Posko Pelayanan Bali",
                     address = "Pesisir Pantai Kedonganan, Kuta Selatan, Kabupaten Badung, Bali",
-                    phone = "0811-1222-333"
+                    phone = "0811-9214-141"
                 )
                 OfficeLocationCard(
                     city = "Posko Pelayanan Sulawesi Utara",

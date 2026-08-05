@@ -111,7 +111,7 @@ fun JobsScreen(
                         onApplyClick = {
                             if (currentUser != null) {
                                 val intent = Intent(Intent.ACTION_VIEW).apply {
-                                    data = Uri.parse("https://wa.me/628111222333?text=Halo%20NFC%20Careers,%20saya%20tertarik%20melamar%20pekerjaan%20sebagai%20${job.title}")
+                                    data = Uri.parse("https://wa.me/628119214141?text=Halo%20NFC%20Careers,%20saya%20tertarik%20melamar%20pekerjaan%20sebagai%20${job.title}")
                                 }
                                 context.startActivity(intent)
                             } else {
