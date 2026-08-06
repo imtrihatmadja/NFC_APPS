@@ -12,6 +12,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
@@ -21,11 +22,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.screens.*
@@ -72,47 +80,129 @@ fun MainAppLayout(viewModel: NfcViewModel) {
                 title = {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.DirectionsBoat,
-                            contentDescription = "NFC Logo",
-                            tint = TablerBlue,
-                            modifier = Modifier.size(28.dp)
-                        )
+                        Surface(
+                            shape = CircleShape,
+                            color = TablerLight,
+                            border = BorderStroke(1.dp, TablerBorder),
+                            modifier = Modifier.size(38.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.logo_nfc_1),
+                                contentDescription = "Logo NFC Indonesia",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(CircleShape),
+                                contentScale = ContentScale.Fit
+                            )
+                        }
                         Text(
-                            text = "NFC Indonesia",
+                            text = "National Fishers Center",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp,
-                            color = TablerDark
+                            fontSize = 15.sp,
+                            color = TablerDark,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
                 },
                 actions = {
                     if (isSearchExpanded) {
-                        TextField(
-                            value = searchQuery,
-                            onValueChange = { viewModel.setSearchQuery(it) },
-                            placeholder = { Text("Cari berita...", fontSize = 12.sp) },
-                            singleLine = true,
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                focusedIndicatorColor = TablerBlue
-                            ),
+                        Surface(
+                            shape = RoundedCornerShape(20.dp),
+                            color = TablerLight,
+                            border = BorderStroke(1.5.dp, TablerBlue),
                             modifier = Modifier
-                                .width(180.dp)
-                                .testTag("global_search_input")
-                        )
-                        IconButton(onClick = { 
-                            isSearchExpanded = false 
-                            viewModel.setSearchQuery("")
-                        }) {
-                            Icon(imageVector = Icons.Default.Close, contentDescription = "Tutup pencarian")
+                                .padding(end = 8.dp)
+                                .width(200.dp)
+                                .height(38.dp)
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(horizontal = 10.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = null,
+                                    tint = TablerBlue,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                BasicTextField(
+                                    value = searchQuery,
+                                    onValueChange = { viewModel.setSearchQuery(it) },
+                                    singleLine = true,
+                                    textStyle = TextStyle(
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = TablerDark
+                                    ),
+                                    cursorBrush = SolidColor(TablerBlue),
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .testTag("global_search_input"),
+                                    decorationBox = { innerTextField ->
+                                        Box(
+                                            contentAlignment = Alignment.CenterStart,
+                                            modifier = Modifier.fillMaxHeight()
+                                        ) {
+                                            if (searchQuery.isEmpty()) {
+                                                Text(
+                                                    text = "Cari kata kunci...",
+                                                    fontSize = 12.sp,
+                                                    color = TablerSecondary,
+                                                    fontWeight = FontWeight.Normal
+                                                )
+                                            }
+                                            innerTextField()
+                                        }
+                                    }
+                                )
+                                IconButton(
+                                    onClick = {
+                                        isSearchExpanded = false
+                                        viewModel.setSearchQuery("")
+                                    },
+                                    modifier = Modifier.size(24.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Tutup pencarian",
+                                        tint = TablerDanger,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
+                            }
                         }
                     } else {
-                        IconButton(onClick = { isSearchExpanded = true }) {
-                            Icon(imageVector = Icons.Default.Search, contentDescription = "Cari")
+                        Surface(
+                            shape = RoundedCornerShape(20.dp),
+                            color = TablerBlue.copy(alpha = 0.12f),
+                            border = BorderStroke(1.dp, TablerBlue.copy(alpha = 0.3f)),
+                            modifier = Modifier
+                                .padding(end = 12.dp)
+                                .clickable { isSearchExpanded = true }
+                                .testTag("header_search_button")
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = "Cari",
+                                    tint = TablerBlue,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Text(
+                                    text = "Cari",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = TablerBlue
+                                )
+                            }
                         }
                     }
                 },

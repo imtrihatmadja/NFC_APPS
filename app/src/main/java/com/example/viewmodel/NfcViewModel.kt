@@ -33,14 +33,14 @@ import com.example.data.worker.DownloadWorker
 
 // Simple custom model for analytical statistics inspired by Tabler UI Image 2
 data class NfcStats(
-    val totalAduan: Int = 132,
-    val aduanPending: Int = 12,
-    val totalKorban: Int = 78,
-    val korbanTertangani: Int = 54,
-    val aduanDalamNegeri: Int = 95,
-    val trenDalamNegeri: Double = 4.0, // +4%
-    val aduanLuarNegeri: Int = 37,
-    val trenLuarNegeri: Double = -2.0 // -2%
+    val totalAduan: Int = 208,
+    val aduanPending: Int = 16,
+    val totalKorban: Int = 626,
+    val korbanTertangani: Int = 580,
+    val aduanDalamNegeri: Int = 145,
+    val trenDalamNegeri: Double = 5.2, // +5.2%
+    val aduanLuarNegeri: Int = 63,
+    val trenLuarNegeri: Double = 2.1 // +2.1%
 )
 
 // Model data keanggotaan pengguna NFC
@@ -97,9 +97,51 @@ class NfcViewModel(application: Application) : AndroidViewModel(application) {
     private val _contactSubmitted = MutableStateFlow(false)
     val contactSubmitted: StateFlow<Boolean> = _contactSubmitted.asStateFlow()
 
-    // Statistics state (Image 2)
-    private val _stats = MutableStateFlow(NfcStats())
-    val stats: StateFlow<NfcStats> = _stats.asStateFlow()
+    // Statistics state - synced reactively with local database & portal baseline
+    private val _baseStats = MutableStateFlow(
+        NfcStats(
+            totalAduan = 208,
+            aduanPending = 16,
+            totalKorban = 626,
+            korbanTertangani = 580,
+            aduanDalamNegeri = 145,
+            trenDalamNegeri = 5.2,
+            aduanLuarNegeri = 63,
+            trenLuarNegeri = 2.1
+        )
+    )
+
+    val stats: StateFlow<NfcStats> = combine(_baseStats, db.complaintDao().getAllComplaints()) { base, localComplaints ->
+        if (localComplaints.isEmpty()) {
+            base
+        } else {
+            val pendingCount = localComplaints.count { it.status == "Diajukan" || it.status == "Menunggu Verifikasi" }
+            val handledCount = localComplaints.count { it.status == "Selesai" || it.status == "Diproses" || it.status == "Rujukan" }
+            val luarNegeriCount = localComplaints.count { 
+                it.location.contains("luar negeri", ignoreCase = true) ||
+                it.location.contains("asing", ignoreCase = true) ||
+                it.location.contains("taiwan", ignoreCase = true) ||
+                it.location.contains("jepang", ignoreCase = true) ||
+                it.location.contains("korea", ignoreCase = true)
+            }
+            val dalamNegeriCount = localComplaints.size - luarNegeriCount
+
+            NfcStats(
+                totalAduan = base.totalAduan + localComplaints.size,
+                aduanPending = base.aduanPending + pendingCount,
+                totalKorban = base.totalKorban + localComplaints.size,
+                korbanTertangani = base.korbanTertangani + handledCount,
+                aduanDalamNegeri = base.aduanDalamNegeri + dalamNegeriCount,
+                trenDalamNegeri = base.trenDalamNegeri,
+                aduanLuarNegeri = base.aduanLuarNegeri + luarNegeriCount,
+                trenLuarNegeri = base.trenLuarNegeri
+            )
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = NfcStats()
+    )
 
     // ==========================================
     // STATE AUTENTIKASI WHATSAPP OTP (FASE 2)

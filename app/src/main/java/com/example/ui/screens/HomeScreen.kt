@@ -85,10 +85,10 @@ fun HomeScreen(
                     text = "Statistik Pengaduan",
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = TablerDark,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    modifier = Modifier.padding(bottom = 2.dp)
                 )
                 Text(
-                    text = "Data statistik real-time aduan awak kapal perikanan (ABK)",
+                    text = "Data statistik aduan awak kapal perikanan (ABK) pembaruan Juli 2026",
                     style = MaterialTheme.typography.bodySmall,
                     color = TablerSecondary,
                     modifier = Modifier.padding(bottom = 12.dp)
