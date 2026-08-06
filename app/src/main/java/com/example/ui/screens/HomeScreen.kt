@@ -713,37 +713,23 @@ fun PostCardItem(
         border = BorderStroke(1.dp, TablerBorder)
     ) {
         Column {
-            // Post Image with Coil AsyncImage
-            if (!post.imageUrl.isNullOrEmpty()) {
-                AsyncImage(
-                    model = post.imageUrl,
-                    contentDescription = post.title,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(180.dp),
-                    contentScale = ContentScale.Crop
-                )
-            } else {
-                // Background solid color when image is empty
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(120.dp)
-                        .background(
-                            Brush.verticalGradient(
-                                colors = listOf(TablerBlue.copy(alpha = 0.1f), TablerBlue.copy(alpha = 0.02f))
-                            )
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.DirectionsBoat,
-                        contentDescription = "Boat icon",
-                        tint = TablerBlue.copy(alpha = 0.3f),
-                        modifier = Modifier.size(48.dp)
-                    )
+            // Featured Image (always displayed)
+            val cardImageUrl = if (!post.imageUrl.isNullOrEmpty()) post.imageUrl else {
+                when (post.type) {
+                    "lowongan" -> "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800"
+                    "kegiatan" -> "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
+                    else -> "https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&q=80&w=800"
                 }
             }
+
+            AsyncImage(
+                model = cardImageUrl,
+                contentDescription = post.title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp),
+                contentScale = ContentScale.Crop
+            )
 
             // Post Details Content
             Column(

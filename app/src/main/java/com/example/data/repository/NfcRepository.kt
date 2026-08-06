@@ -66,13 +66,15 @@ class NfcRepository(private val postDao: PostDao) {
                         else -> "berita"
                     }
 
+                    val imageUrl = extractImageUrl(wpPost.content.rendered, wpPost.featuredImageUrl, type)
+
                     Post(
                         id = wpPost.id,
                         title = cleanHtml(wpPost.title.rendered),
                         content = wpPost.content.rendered,
                         excerpt = cleanHtml(wpPost.excerpt.rendered),
                         date = wpPost.date.split("T").firstOrNull() ?: wpPost.date,
-                        imageUrl = wpPost.featuredImageUrl,
+                        imageUrl = imageUrl,
                         type = type,
                         authorName = "NFC Indonesia",
                         link = wpPost.link
@@ -83,6 +85,25 @@ class NfcRepository(private val postDao: PostDao) {
         } catch (e: Exception) {
             e.printStackTrace()
             // Gracefully ignore and rely on Room + Prepopulated Data
+        }
+    }
+
+    private fun extractImageUrl(content: String, featuredUrl: String?, type: String): String {
+        if (!featuredUrl.isNullOrBlank() && featuredUrl.startsWith("http")) {
+            return featuredUrl
+        }
+        val imgRegex = """<img[^>]+src=["']([^"']+)["']""".toRegex(RegexOption.IGNORE_CASE)
+        val match = imgRegex.find(content)
+        if (match != null && match.groupValues.size > 1) {
+            val extracted = match.groupValues[1]
+            if (extracted.startsWith("http")) {
+                return extracted
+            }
+        }
+        return when (type) {
+            "lowongan" -> "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800"
+            "kegiatan" -> "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
+            else -> "https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&q=80&w=800"
         }
     }
 

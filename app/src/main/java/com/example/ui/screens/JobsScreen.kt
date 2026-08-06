@@ -219,17 +219,17 @@ fun JobItemCard(
         border = BorderStroke(1.dp, TablerBorder)
     ) {
         Column {
-            // Thumbnail
-            if (!job.imageUrl.isNullOrEmpty()) {
-                AsyncImage(
-                    model = job.imageUrl,
-                    contentDescription = job.title,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(140.dp),
-                    contentScale = ContentScale.Crop
-                )
-            }
+            // Featured Thumbnail (always displayed)
+            val jobImageUrl = if (!job.imageUrl.isNullOrEmpty()) job.imageUrl else "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800"
+
+            AsyncImage(
+                model = jobImageUrl,
+                contentDescription = job.title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp),
+                contentScale = ContentScale.Crop
+            )
 
             Column(
                 modifier = Modifier.padding(16.dp),

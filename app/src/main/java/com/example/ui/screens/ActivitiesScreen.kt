@@ -115,17 +115,17 @@ fun ActivityItemCard(
         border = BorderStroke(1.dp, TablerBorder)
     ) {
         Column {
-            // Thumbnail
-            if (!activity.imageUrl.isNullOrEmpty()) {
-                AsyncImage(
-                    model = activity.imageUrl,
-                    contentDescription = activity.title,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(150.dp),
-                    contentScale = ContentScale.Crop
-                )
-            }
+            // Featured Thumbnail (always displayed)
+            val activityImageUrl = if (!activity.imageUrl.isNullOrEmpty()) activity.imageUrl else "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
+
+            AsyncImage(
+                model = activityImageUrl,
+                contentDescription = activity.title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(160.dp),
+                contentScale = ContentScale.Crop
+            )
 
             Column(
                 modifier = Modifier.padding(16.dp),

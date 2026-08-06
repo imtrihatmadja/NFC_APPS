@@ -93,17 +93,23 @@ fun PostDetailScreen(
                 .padding(paddingValues)
                 .verticalScroll(scrollState)
         ) {
-            // Image
-            if (!post.imageUrl.isNullOrEmpty()) {
-                AsyncImage(
-                    model = post.imageUrl,
-                    contentDescription = post.title,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(220.dp),
-                    contentScale = ContentScale.Crop
-                )
+            // Featured Image (always displayed)
+            val displayImageUrl = if (!post.imageUrl.isNullOrEmpty()) post.imageUrl else {
+                when (post.type) {
+                    "lowongan" -> "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800"
+                    "kegiatan" -> "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800"
+                    else -> "https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&q=80&w=800"
+                }
             }
+
+            AsyncImage(
+                model = displayImageUrl,
+                contentDescription = post.title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(230.dp),
+                contentScale = ContentScale.Crop
+            )
 
             // Article Content Area
             Column(
