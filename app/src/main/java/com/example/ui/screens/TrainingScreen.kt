@@ -581,7 +581,11 @@ fun OfflineMaterialReader(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.White,
+                    titleContentColor = TablerDark,
+                    navigationIconContentColor = TablerDark
+                )
             )
         }
     ) { innerPadding ->

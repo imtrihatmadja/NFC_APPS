@@ -10,7 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
@@ -40,10 +40,22 @@ fun PostDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = post.type.uppercase(), fontSize = 14.sp, fontWeight = FontWeight.Bold) },
+                title = { 
+                    Text(
+                        text = post.type.uppercase(), 
+                        fontSize = 15.sp, 
+                        fontWeight = FontWeight.Bold,
+                        color = TablerDark
+                    ) 
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Kembali")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack, 
+                            contentDescription = "Kembali",
+                            tint = TablerDark,
+                            modifier = Modifier.size(24.dp)
+                        )
                     }
                 },
                 actions = {
@@ -57,12 +69,19 @@ fun PostDetailScreen(
                         }
                         context.startActivity(Intent.createChooser(shareIntent, "Bagikan artikel"))
                     }) {
-                        Icon(imageVector = Icons.Default.Share, contentDescription = "Bagikan")
+                        Icon(
+                            imageVector = Icons.Default.Share, 
+                            contentDescription = "Bagikan",
+                            tint = TablerBlue,
+                            modifier = Modifier.size(22.dp)
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.White,
-                    titleContentColor = TablerDark
+                    titleContentColor = TablerDark,
+                    navigationIconContentColor = TablerDark,
+                    actionIconContentColor = TablerBlue
                 )
             )
         }

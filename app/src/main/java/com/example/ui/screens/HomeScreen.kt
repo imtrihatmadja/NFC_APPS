@@ -20,6 +20,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,13 +61,20 @@ fun HomeScreen(
     var bookmarkedPosts by remember { mutableStateOf(setOf<Int>()) }
     var showLoginDialog by remember { mutableStateOf(false) }
 
-    LazyColumn(
+    PullToRefreshBox(
+        isRefreshing = isSyncing,
+        onRefresh = { viewModel.syncWordPressData() },
         modifier = modifier
             .fillMaxSize()
-            .testTag("home_scroll_column"),
-        contentPadding = PaddingValues(bottom = 32.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+            .testTag("home_pull_to_refresh")
     ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .testTag("home_scroll_column"),
+            contentPadding = PaddingValues(bottom = 32.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
         // 1. Hero Banner Section
         item {
             HeroBannerSection(
@@ -389,6 +398,7 @@ fun HomeScreen(
             shape = RoundedCornerShape(16.dp)
         )
     }
+}
 }
 
 @Composable
@@ -940,7 +950,7 @@ fun NewsletterSection(viewModel: NfcViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         border = BorderStroke(1.dp, TablerBorder)
     ) {
@@ -957,7 +967,7 @@ fun NewsletterSection(viewModel: NfcViewModel) {
                 text = "Berlangganan buletin berkala untuk info edukasi, pengaduan terbaru, serta lowongan kerja kelautan resmi.",
                 style = MaterialTheme.typography.bodySmall,
                 color = TablerSecondary,
-                lineHeight = 16.sp
+                lineHeight = 18.sp
             )
 
             AnimatedVisibility(
@@ -970,16 +980,26 @@ fun NewsletterSection(viewModel: NfcViewModel) {
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    TextField(
+                    OutlinedTextField(
                         value = email,
                         onValueChange = { viewModel.newsletterEmail.value = it },
-                        placeholder = { Text("Alamat Email Anda", fontSize = 13.sp) },
+                        placeholder = { 
+                            Text(
+                                text = "Alamat Email Anda", 
+                                fontSize = 13.sp,
+                                color = TablerSecondary
+                            ) 
+                        },
                         singleLine = true,
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = TablerLight,
-                            unfocusedContainerColor = TablerLight,
-                            focusedIndicatorColor = TablerBlue,
-                            unfocusedIndicatorColor = Color.Transparent
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedContainerColor = Color(0xFFF8FAFC),
+                            unfocusedContainerColor = Color(0xFFF8FAFC),
+                            focusedTextColor = TablerDark,
+                            unfocusedTextColor = TablerDark,
+                            focusedBorderColor = TablerBlue,
+                            unfocusedBorderColor = Color(0xFFCBD5E1),
+                            focusedPlaceholderColor = TablerSecondary,
+                            unfocusedPlaceholderColor = TablerSecondary
                         ),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         shape = RoundedCornerShape(6.dp),
@@ -993,10 +1013,15 @@ fun NewsletterSection(viewModel: NfcViewModel) {
                         colors = ButtonDefaults.buttonColors(containerColor = TablerBlue),
                         shape = RoundedCornerShape(6.dp),
                         modifier = Modifier
-                            .height(52.dp)
+                            .height(50.dp)
                             .testTag("newsletter_subscribe_button")
                     ) {
-                        Text("Subscribe", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Subscribe", 
+                            color = Color.White, 
+                            fontSize = 13.sp, 
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             }
@@ -1024,7 +1049,7 @@ fun NewsletterSection(viewModel: NfcViewModel) {
                         Text(
                             text = "Terima kasih! Email Anda telah terdaftar.",
                             color = TablerSuccess,
-                            fontSize = 12.sp,
+                            fontSize = 13.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }

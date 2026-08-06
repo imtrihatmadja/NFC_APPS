@@ -37,12 +37,32 @@ class NfcRepository(private val postDao: PostDao) {
             val rawPosts = apiService.getPosts(perPage = 20)
             if (rawPosts.isNotEmpty()) {
                 val posts = rawPosts.map { wpPost ->
-                    // Determine category/type based on content or title keywords (simplified for Fase 1 WP feed)
+                    // Determine category/type based on content and title keywords
                     val contentText = wpPost.content.rendered.lowercase()
                     val titleText = wpPost.title.rendered.lowercase()
+
+                    val isLowongan = (
+                        titleText.contains("lowongan") || 
+                        titleText.contains("dibutuhkan") || 
+                        titleText.contains("recruitment") || 
+                        titleText.contains("loker") || 
+                        titleText.contains("vacancy") ||
+                        contentText.contains("lowongan kerja") || 
+                        contentText.contains("dibutuhkan segera")
+                    ) && !titleText.contains("sosialisasi") && !titleText.contains("perjanjian kerja laut") && !titleText.contains("keselamatan kerja")
+
+                    val isKegiatan = (
+                        contentText.contains("kegiatan") || 
+                        titleText.contains("kegiatan") || 
+                        titleText.contains("sosialisasi") || 
+                        titleText.contains("lokakarya") || 
+                        titleText.contains("workshop") || 
+                        titleText.contains("pelatihan")
+                    ) && !isLowongan
+
                     val type = when {
-                        contentText.contains("lowongan") || titleText.contains("lowongan") || titleText.contains("kerja") -> "lowongan"
-                        contentText.contains("kegiatan") || titleText.contains("kegiatan") || titleText.contains("sosialisasi") -> "kegiatan"
+                        isLowongan -> "lowongan"
+                        isKegiatan -> "kegiatan"
                         else -> "berita"
                     }
 

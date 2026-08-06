@@ -11,6 +11,7 @@ data class WPPostResponse(
     val content: WPRendered,
     val excerpt: WPRendered,
     val link: String,
+    val categories: List<Int>? = null,
     @Json(name = "jetpack_featured_media_url") val featuredImageUrl: String? = null
 )
 

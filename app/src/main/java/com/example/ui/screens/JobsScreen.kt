@@ -43,7 +43,12 @@ fun JobsScreen(
 ) {
     val posts by viewModel.posts.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState()
-    val jobs = posts.filter { it.type == "lowongan" }
+    val jobs = posts.filter { post ->
+        post.type == "lowongan" && 
+        !post.title.contains("sosialisasi", ignoreCase = true) &&
+        !post.title.contains("perjanjian kerja laut", ignoreCase = true) &&
+        !post.title.contains("keselamatan kerja", ignoreCase = true)
+    }
     val context = LocalContext.current
     var showLoginDialog by remember { mutableStateOf(false) }
 
